@@ -15,8 +15,34 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Desenvolvedor de Sistemas | DEV_CRAFT",
-  description: "Engenharia de software de alta performance, arquitetura escalável e interfaces elegantes. Transformo desafios de negócios em soluções tecnológicas robustas e eficientes.",
+  title: "Caetano César | Desenvolvedor de Software, Web e Mobile",
+  description: "Desenvolvedor e Programador de Sistemas, Web, Mobile e IA. Atendimento para empresas em Pedro Leopoldo, Belo Horizonte (RMBH) e remoto (home office) para todo o Brasil.",
+  keywords: [
+    "desenvolvedor de software",
+    "programador",
+    "desenvolvedor web",
+    "programador web",
+    "desenvolvedor mobile",
+    "programador mobile",
+    "desenvolvedor de sistemas",
+    "programador de sistemas",
+    "desenvolvedor de inteligência artificial",
+    "programador de inteligência artificial",
+    "automação de processos",
+    "automação de inteligencia artificial",
+    "Pedro Leopoldo",
+    "Belo Horizonte",
+    "Confins",
+    "Matozinhos",
+    "São José da Lapa",
+    "Vespasiano",
+    "Capim Branco",
+    "Região Metropolitana de BH",
+    "home office",
+    "remoto",
+    "todo o Brasil",
+    "tecnologia para empresas"
+  ],
 };
 
 export default function RootLayout({

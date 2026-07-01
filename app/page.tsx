@@ -2,17 +2,18 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { FaLinkedinIn, FaInstagram, FaWhatsapp, FaGithub, FaEnvelope } from "react-icons/fa";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   // Scroll spy to update active section in navigation
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "services", "projects", "contact"];
+      const sections = ["home", "about", "services", "projects", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -37,16 +38,34 @@ export default function Home() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setFormStatus("sending");
-    setTimeout(() => {
-      setFormStatus("success");
-      setFormData({ name: "", email: "", message: "" });
+
+    try {
+      const response = await fetch("https://formspree.io/f/xqevygpv", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setFormStatus("idle"), 5000);
+      } else {
+        setFormStatus("error");
+        setTimeout(() => setFormStatus("idle"), 5000);
+      }
+    } catch (error) {
+      setFormStatus("error");
       setTimeout(() => setFormStatus("idle"), 5000);
-    }, 1500);
+    }
   };
 
   return (
@@ -62,50 +81,55 @@ export default function Home() {
             className="font-headline-sm text-headline-sm font-extrabold text-primary tracking-tighter hover:scale-95 transition-all"
             href="#home"
           >
-            DEV_CRAFT
+            Caetano César
           </a>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             <a
-              className={`transition-colors pb-1 ${
-                activeSection === "home"
-                  ? "text-primary font-bold border-b-2 border-primary"
-                  : "text-on-surface-variant hover:text-primary"
-              }`}
+              className={`transition-colors pb-1 ${activeSection === "home"
+                ? "text-primary font-bold border-b-2 border-primary"
+                : "text-on-surface-variant hover:text-primary"
+                }`}
               href="#home"
             >
-              Home
+              Início
             </a>
             <a
-              className={`transition-colors pb-1 ${
-                activeSection === "services"
-                  ? "text-primary font-bold border-b-2 border-primary"
-                  : "text-on-surface-variant hover:text-primary"
-              }`}
+              className={`transition-colors pb-1 ${activeSection === "about"
+                ? "text-primary font-bold border-b-2 border-primary"
+                : "text-on-surface-variant hover:text-primary"
+                }`}
+              href="#about"
+            >
+              Sobre Mim
+            </a>
+            <a
+              className={`transition-colors pb-1 ${activeSection === "services"
+                ? "text-primary font-bold border-b-2 border-primary"
+                : "text-on-surface-variant hover:text-primary"
+                }`}
               href="#services"
             >
-              Services
+              Serviços
             </a>
             <a
-              className={`transition-colors pb-1 ${
-                activeSection === "projects"
-                  ? "text-primary font-bold border-b-2 border-primary"
-                  : "text-on-surface-variant hover:text-primary"
-              }`}
+              className={`transition-colors pb-1 ${activeSection === "projects"
+                ? "text-primary font-bold border-b-2 border-primary"
+                : "text-on-surface-variant hover:text-primary"
+                }`}
               href="#projects"
             >
-              Projects
+              Tecnologias
             </a>
             <a
-              className={`transition-colors pb-1 ${
-                activeSection === "contact"
-                  ? "text-primary font-bold border-b-2 border-primary"
-                  : "text-on-surface-variant hover:text-primary"
-              }`}
+              className={`transition-colors pb-1 ${activeSection === "contact"
+                ? "text-primary font-bold border-b-2 border-primary"
+                : "text-on-surface-variant hover:text-primary"
+                }`}
               href="#contact"
             >
-              Contact
+              Contato
             </a>
           </div>
 
@@ -114,7 +138,7 @@ export default function Home() {
             className="hidden md:inline-flex items-center justify-center px-6 py-3 bg-primary-container text-on-primary font-label-bold text-label-bold rounded hover:translate-y-[-2px] transition-transform duration-200 shadow-sm hover:shadow-md"
             href="#contact"
           >
-            Hire Me
+            Fale Comigo
           </a>
 
           {/* Mobile Menu Toggle */}
@@ -131,53 +155,56 @@ export default function Home() {
 
         {/* Mobile Navigation Drawer */}
         <div
-          className={`md:hidden absolute top-20 left-0 w-full bg-surface/95 backdrop-blur-lg border-b border-secondary-container transition-all duration-300 overflow-hidden ${
-            isMenuOpen ? "max-h-72 opacity-100 py-6" : "max-h-0 opacity-0 py-0 pointer-events-none"
-          }`}
+          className={`md:hidden absolute top-20 left-0 w-full bg-surface/95 backdrop-blur-lg border-b border-secondary-container transition-all duration-300 overflow-hidden ${isMenuOpen ? "max-h-72 opacity-100 py-6" : "max-h-0 opacity-0 py-0 pointer-events-none"
+            }`}
         >
           <div className="flex flex-col items-center gap-4 px-margin-mobile">
             <a
-              className={`w-full text-center py-2 transition-colors ${
-                activeSection === "home" ? "text-primary font-bold" : "text-on-surface-variant"
-              }`}
+              className={`w-full text-center py-2 transition-colors ${activeSection === "home" ? "text-primary font-bold" : "text-on-surface-variant"
+                }`}
               href="#home"
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
+              Início
             </a>
             <a
-              className={`w-full text-center py-2 transition-colors ${
-                activeSection === "services" ? "text-primary font-bold" : "text-on-surface-variant"
-              }`}
+              className={`w-full text-center py-2 transition-colors ${activeSection === "about" ? "text-primary font-bold" : "text-on-surface-variant"
+                }`}
+              href="#about"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Sobre Mim
+            </a>
+            <a
+              className={`w-full text-center py-2 transition-colors ${activeSection === "services" ? "text-primary font-bold" : "text-on-surface-variant"
+                }`}
               href="#services"
               onClick={() => setIsMenuOpen(false)}
             >
-              Services
+              Serviços
             </a>
             <a
-              className={`w-full text-center py-2 transition-colors ${
-                activeSection === "projects" ? "text-primary font-bold" : "text-on-surface-variant"
-              }`}
+              className={`w-full text-center py-2 transition-colors ${activeSection === "projects" ? "text-primary font-bold" : "text-on-surface-variant"
+                }`}
               href="#projects"
               onClick={() => setIsMenuOpen(false)}
             >
-              Projects
+              Tecnologias
             </a>
             <a
-              className={`w-full text-center py-2 transition-colors ${
-                activeSection === "contact" ? "text-primary font-bold" : "text-on-surface-variant"
-              }`}
+              className={`w-full text-center py-2 transition-colors ${activeSection === "contact" ? "text-primary font-bold" : "text-on-surface-variant"
+                }`}
               href="#contact"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              Contato
             </a>
             <a
               className="w-full text-center py-3 bg-primary-container text-on-primary font-label-bold text-label-bold rounded shadow-sm"
               href="#contact"
               onClick={() => setIsMenuOpen(false)}
             >
-              Hire Me
+              Fale Comigo
             </a>
           </div>
         </div>
@@ -229,23 +256,6 @@ export default function Home() {
                   arrow_forward
                 </span>
               </a>
-              <a
-                className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-primary-container border border-secondary-container font-label-bold text-label-bold rounded hover:border-primary-container hover:bg-primary-fixed/10 transition-all duration-200 h-12"
-                href="#projects"
-              >
-                Ver projetos
-              </a>
-            </div>
-            <div className="mt-8 flex items-center gap-4 text-secondary text-sm">
-              <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center text-xs font-bold">
-                  +50
-                </div>
-                <div className="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[16px]">code</span>
-                </div>
-              </div>
-              <span className="font-code text-code">Projetos entregues com sucesso</span>
             </div>
           </div>
           <div className="flex-1 w-full max-w-md lg:max-w-none relative">
@@ -253,12 +263,83 @@ export default function Home() {
             <div className="absolute inset-0 bg-primary-fixed rounded-2xl transform translate-x-4 translate-y-4 -z-10"></div>
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-secondary-container bg-surface-container-lowest">
               <Image
-                alt="Professional Headshot"
+                alt="Foto de Caetano César"
                 className="object-cover object-center filter contrast-105"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzbrshxgX0eTyrx8UOqD1q4jlKx1rqrHcDAOrt0HXOk0Ahd5OJqiiRcHiMgHRf9vKEvG8r0iI3Z8m71zcVTiVTPehP00nCpA5CzM_hasBV4IhXhYtWwgDRRGdvMWa8ydMhuO-TZ5Ru00y5rWhVQBs6nXEqtw149KaVrCpLdBjISgH-mVsiOOZgAaeFfBRisdNl54w73Cjd7MQWvN6QLLidYJmGMmqZ5tgB0nC1sxMEDzl9JXutbIUNDso4i59k894_busem9ypZCZL"
+                src="/perfil.jpg"
                 fill
                 priority
               />
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section
+          className="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto border-t border-secondary-container"
+          id="about"
+        >
+          <div className="flex flex-col lg:flex-row gap-16 items-start">
+            <div className="flex-1 w-full">
+              <h2 className="font-headline-md text-headline-md text-on-surface mb-6">
+                Sobre Mim
+              </h2>
+              <div className="font-body-lg text-body-lg text-on-surface-variant flex flex-col gap-4">
+                <p>
+                  Sou um Desenvolvedor Fullstack com foco em entregar soluções tecnológicas robustas, escaláveis e focadas na experiência do usuário. Minha trajetória profissional tem raízes sólidas na <strong>Defensoria Pública de Minas Gerais</strong>, onde atuei desde o estágio até a efetivação como Desenvolvedor de Software.
+                </p>
+                <p>
+                  No ecossistema <strong>Frontend e Mobile</strong>, construo interfaces modernas e fluidas utilizando <strong>React, Next.js, Tailwind CSS e Zustand</strong> na web, além de aplicativos nativos de alta performance com <strong>Flutter, Clean Architecture e BLoC</strong>.
+                </p>
+                <p>
+                  No <strong>Backend e DevOps</strong>, minha paixão é resolver problemas complexos. Desenvolvo arquiteturas avançadas utilizando <strong>Node.js e NestJS</strong>, integrando mensageria (RabbitMQ, BullMQ), bancos de dados (PrismaORM) e rotinas de segurança (JWT/OAuth). Também tenho forte atuação em automações e chatbots com <strong>n8n</strong>, além de garantir a estabilidade do sistema com testes automatizados (QA com Selenium) e conteinerização com Docker.
+                </p>
+                <p>
+                  Meu objetivo é construir sistemas de ponta a ponta, unindo a paixão por tecnologia com resultados tangíveis para o negócio, trabalhando em equipe e sempre disposto a compartilhar conhecimento.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex-1 w-full bg-surface-container-low p-8 rounded-2xl border border-secondary-container">
+              <h3 className="font-headline-sm text-headline-sm text-on-surface border-b border-secondary-container pb-4 mb-6">
+                Experiência & Habilidades
+              </h3>
+              
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-primary-container text-on-primary rounded flex items-center justify-center">
+                    <span className="material-symbols-outlined">work</span>
+                  </div>
+                  <div>
+                    <h4 className="font-label-bold text-label-bold text-on-surface">Desenvolvedor de Software</h4>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant">Defensoria Pública de Minas Gerais</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h4 className="font-label-bold text-label-bold text-on-surface mb-2">Stack Principal</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">React / Next.js</span>
+                    <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">Flutter</span>
+                    <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">NestJS / Node.js</span>
+                    <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">n8n (Automação)</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="font-label-bold text-label-bold text-on-surface mb-2">Arquitetura & Ferramentas</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-surface-container-lowest text-on-surface-variant font-code text-code rounded border border-secondary-container">Clean Architecture</span>
+                    <span className="px-3 py-1 bg-surface-container-lowest text-on-surface-variant font-code text-code rounded border border-secondary-container">BLoC / Zustand</span>
+                    <span className="px-3 py-1 bg-surface-container-lowest text-on-surface-variant font-code text-code rounded border border-secondary-container">RabbitMQ / BullMQ</span>
+                    <span className="px-3 py-1 bg-surface-container-lowest text-on-surface-variant font-code text-code rounded border border-secondary-container">PrismaORM</span>
+                    <span className="px-3 py-1 bg-surface-container-lowest text-on-surface-variant font-code text-code rounded border border-secondary-container">Docker / CI/CD</span>
+                    <span className="px-3 py-1 bg-surface-container-lowest text-on-surface-variant font-code text-code rounded border border-secondary-container">QA Selenium</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -293,7 +374,7 @@ export default function Home() {
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant">
                   Aplicações single-page rápidas e responsivas utilizando frameworks modernos como React e
-                  Vue, focadas em UX e performance.
+                  next.js, focadas em UX e performance.
                 </p>
               </div>
               {/* Service Card 2 */}
@@ -310,7 +391,7 @@ export default function Home() {
                   APIs &amp; Backend
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant">
-                  Desenvolvimento de APIs RESTful e GraphQL escaláveis com Node.js e Python, garantindo
+                  Desenvolvimento de APIs RESTful escaláveis com Node.js e NestJS, garantindo
                   segurança e integridade de dados.
                 </p>
               </div>
@@ -365,7 +446,7 @@ export default function Home() {
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant">
                   Conexão fluida entre sistemas legados, gateways de pagamento, CRMs de terceiros e
-                  serviços em nuvem AWS/GCP.
+                  serviços em nuvem.
                 </p>
               </div>
               {/* Service Card 6 */}
@@ -393,7 +474,7 @@ export default function Home() {
         {/* Projects Section */}
         <section className="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto" id="projects">
           <div className="mb-16 md:mb-24 text-center">
-            <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Serviços Fornecidos</h2>
+            <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Serviços e tecnologias</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
               Soluções tecnológicas completas para impulsionar a transformação digital do seu negócio.
             </p>
@@ -405,11 +486,25 @@ export default function Home() {
                 <h3 className="font-headline-md text-headline-md text-on-surface mb-4">
                   Desenvolvimento Web
                 </h3>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                <p className="font-body-lg text-body-lg text-on-surface-variant mb-4">
                   Criação de interfaces modernas, responsivas e de alta performance. Utilizamos as
                   tecnologias mais recentes para garantir que sua presença digital seja rápida, segura e
                   visualmente impactante.
                 </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    React
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    TypeScript
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Next.js
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Tailwind CSS
+                  </span>
+                </div>
               </div>
               <div className="flex-1 w-full order-1 lg:order-2">
                 <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-secondary-container flat-shadow bg-surface-container-high">
@@ -439,10 +534,21 @@ export default function Home() {
                 <h3 className="font-headline-md text-headline-md text-on-surface mb-4">
                   Desenvolvimento Mobile
                 </h3>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                <p className="font-body-lg text-body-lg text-on-surface-variant mb-4">
                   Aplicativos nativos e híbridos focados na melhor experiência do usuário. Transformamos sua
                   ideia em uma ferramenta poderosa disponível na palma da mão dos seus clientes.
                 </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Flutter
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Dispositivos Android
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Dispositivos ios
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -452,10 +558,18 @@ export default function Home() {
                 <h3 className="font-headline-md text-headline-md text-on-surface mb-4">
                   Desenvolvimento Backend
                 </h3>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                <p className="font-body-lg text-body-lg text-on-surface-variant mb-4">
                   Arquiteturas robustas e escaláveis para suportar grandes volumes de dados. Foco total em
                   segurança, integridade e APIs de alta disponibilidade para o seu ecossistema.
                 </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Node.js
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    NestJS
+                  </span>
+                </div>
               </div>
               <div className="flex-1 w-full order-1 lg:order-2">
                 <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-secondary-container flat-shadow bg-surface-container-high">
@@ -485,10 +599,18 @@ export default function Home() {
                 <h3 className="font-headline-md text-headline-md text-on-surface mb-4">
                   Automações com IA
                 </h3>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                <p className="font-body-lg text-body-lg text-on-surface-variant mb-4">
                   Integração de inteligência artificial para otimizar processos e reduzir custos
                   operacionais. Criamos fluxos inteligentes que aprendem e evoluem com o seu negócio.
                 </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    n8n
+                  </span>
+                  <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">
+                    Monitoramentos com IA
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -520,16 +642,16 @@ export default function Home() {
                 <div className="flex flex-col gap-6">
                   <a
                     className="flex items-center gap-4 p-4 bg-surface-container-lowest border border-secondary-container rounded hover:border-primary-container hover:shadow-md transition-all group"
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/caetanocesar/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <div className="w-10 h-10 bg-surface-container flex items-center justify-center rounded text-on-surface-variant group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
-                      <span className="material-symbols-outlined">work</span>
+                      <FaLinkedinIn className="text-xl" />
                     </div>
                     <div className="flex flex-col">
                       <span className="font-label-bold text-label-bold text-on-surface">LinkedIn</span>
-                      <span className="font-code text-code text-on-surface-variant">/in/devcraft</span>
+                      <span className="font-code text-code text-on-surface-variant">/in/caetanocesar</span>
                     </div>
                     <span className="material-symbols-outlined ml-auto text-secondary-container group-hover:text-primary-container transition-colors">
                       arrow_outward
@@ -543,7 +665,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <div className="w-10 h-10 bg-surface-container flex items-center justify-center rounded text-on-surface-variant group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
-                      <span className="material-symbols-outlined">chat</span>
+                      <FaWhatsapp className="text-xl" />
                     </div>
                     <div className="flex flex-col">
                       <span className="font-label-bold text-label-bold text-on-surface">WhatsApp</span>
@@ -556,31 +678,57 @@ export default function Home() {
 
                   <a
                     className="flex items-center gap-4 p-4 bg-surface-container-lowest border border-secondary-container rounded hover:border-primary-container hover:shadow-md transition-all group"
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/caetano._dev/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <div className="w-10 h-10 bg-surface-container flex items-center justify-center rounded text-on-surface-variant group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
-                      <span className="material-symbols-outlined">photo_camera</span>
+                      <FaInstagram className="text-xl" />
                     </div>
                     <div className="flex flex-col">
                       <span className="font-label-bold text-label-bold text-on-surface">Instagram</span>
-                      <span className="font-code text-code text-on-surface-variant">@dev.craft</span>
+                      <span className="font-code text-code text-on-surface-variant">@caetano._dev</span>
                     </div>
                     <span className="material-symbols-outlined ml-auto text-secondary-container group-hover:text-primary-container transition-colors">
                       arrow_outward
                     </span>
                   </a>
-                </div>
 
-                <div className="mt-4 flex flex-col gap-2 border-t border-secondary-container pt-6">
-                  <div className="flex items-center gap-2 text-on-surface-variant font-code text-code">
-                    <span className="material-symbols-outlined text-[18px]">mail</span> hello@devcraft.com
-                  </div>
-                  <div className="flex items-center gap-2 text-on-surface-variant font-code text-code">
-                    <span className="material-symbols-outlined text-[18px]">schedule</span> Seg - Sex,
-                    09:00 - 18:00 (BRT)
-                  </div>
+                  <a
+                    className="flex items-center gap-4 p-4 bg-surface-container-lowest border border-secondary-container rounded hover:border-primary-container hover:shadow-md transition-all group"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=caetanocesar35dev@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="w-10 h-10 bg-surface-container flex items-center justify-center rounded text-on-surface-variant group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+                      <FaEnvelope className="text-xl" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-label-bold text-label-bold text-on-surface">E-mail</span>
+                      <span className="font-code text-code text-on-surface-variant">caetanocesar35dev@gmail.com</span>
+                    </div>
+                    <span className="material-symbols-outlined ml-auto text-secondary-container group-hover:text-primary-container transition-colors">
+                      arrow_outward
+                    </span>
+                  </a>
+
+                  <a
+                    className="flex items-center gap-4 p-4 bg-surface-container-lowest border border-secondary-container rounded hover:border-primary-container hover:shadow-md transition-all group"
+                    href="https://github.com/XxxCaetanoxxX"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="w-10 h-10 bg-surface-container flex items-center justify-center rounded text-on-surface-variant group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+                      <FaGithub className="text-xl" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-label-bold text-label-bold text-on-surface">GitHub</span>
+                      <span className="font-code text-code text-on-surface-variant">/XxxCaetanoxxX</span>
+                    </div>
+                    <span className="material-symbols-outlined ml-auto text-secondary-container group-hover:text-primary-container transition-colors">
+                      arrow_outward
+                    </span>
+                  </a>
                 </div>
               </div>
 
@@ -631,7 +779,7 @@ export default function Home() {
                         onChange={handleInputChange}
                         required
                         disabled={formStatus === "sending"}
-                        placeholder="seu.email@dominio.com"
+                        placeholder="seu.email@email.com"
                         className="w-full px-4 py-3 bg-surface-container-lowest border-b-2 border-secondary-container focus:border-primary-container focus:outline-none transition-all rounded-t-md text-on-surface"
                       />
                     </div>
@@ -651,6 +799,11 @@ export default function Home() {
                         className="w-full px-4 py-3 bg-surface-container-lowest border-b-2 border-secondary-container focus:border-primary-container focus:outline-none transition-all rounded-t-md text-on-surface resize-none"
                       />
                     </div>
+                    {formStatus === "error" && (
+                      <p className="text-red-500 dark:text-red-400 font-body-sm text-body-sm text-center">
+                        Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente ou use as redes sociais.
+                      </p>
+                    )}
                     <button
                       type="submit"
                       disabled={formStatus === "sending"}
@@ -683,29 +836,29 @@ export default function Home() {
             className="font-headline-sm text-headline-sm text-on-surface hover:text-primary-container transition-colors"
             href="#home"
           >
-            DEV_CRAFT
+            Caetano César
           </a>
           <p className="font-label-bold text-label-bold text-secondary text-center">
-            © 2024 DEV_CRAFT. Built with precision.
+            © 2026 Caetano César. Construído com precisão.
           </p>
           <div className="flex items-center gap-4">
             <a
-              aria-label="Code Repository"
-              className="text-secondary hover:text-primary-container transition-colors opacity-80 hover:opacity-100"
-              href="https://github.com"
+              aria-label="Repositório de código"
+              className="text-secondary hover:text-primary-container transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
+              href="https://github.com/XxxCaetanoxxX"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="material-symbols-outlined">code</span>
+              <FaGithub className="text-lg" />
             </a>
             <a
-              aria-label="Share Profile"
-              className="text-secondary hover:text-primary-container transition-colors opacity-80 hover:opacity-100"
-              href="https://linkedin.com"
+              aria-label="Compartilhar perfil"
+              className="text-secondary hover:text-primary-container transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
+              href="https://www.linkedin.com/in/caetanocesar/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="material-symbols-outlined">share</span>
+              <FaLinkedinIn className="text-lg" />
             </a>
           </div>
         </div>
