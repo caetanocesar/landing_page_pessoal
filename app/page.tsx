@@ -13,7 +13,7 @@ export default function Home() {
   // Scroll spy to update active section in navigation
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "services", "projects", "contact"];
+      const sections = ["home", "about", "services", "technologies", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -114,11 +114,11 @@ export default function Home() {
               Serviços
             </a>
             <a
-              className={`transition-colors pb-1 ${activeSection === "projects"
+              className={`transition-colors pb-1 ${activeSection === "technologies"
                 ? "text-primary font-bold border-b-2 border-primary"
                 : "text-on-surface-variant hover:text-primary"
                 }`}
-              href="#projects"
+              href="#technologies"
             >
               Tecnologias
             </a>
@@ -184,9 +184,9 @@ export default function Home() {
               Serviços
             </a>
             <a
-              className={`w-full text-center py-2 transition-colors ${activeSection === "projects" ? "text-primary font-bold" : "text-on-surface-variant"
+              className={`w-full text-center py-2 transition-colors ${activeSection === "technologies" ? "text-primary font-bold" : "text-on-surface-variant"
                 }`}
-              href="#projects"
+              href="#technologies"
               onClick={() => setIsMenuOpen(false)}
             >
               Tecnologias
@@ -303,7 +303,7 @@ export default function Home() {
               <h3 className="font-headline-sm text-headline-sm text-on-surface border-b border-secondary-container pb-4 mb-6">
                 Experiência & Habilidades
               </h3>
-              
+
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 bg-primary-container text-on-primary rounded flex items-center justify-center">
@@ -326,7 +326,7 @@ export default function Home() {
                     <span className="px-3 py-1 bg-surface-container text-primary font-code text-code rounded border border-secondary-container">n8n (Automação)</span>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="font-label-bold text-label-bold text-on-surface mb-2">Arquitetura & Ferramentas</h4>
                   <div className="flex flex-wrap gap-2">
@@ -471,8 +471,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Projects Section */}
-        <section className="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto" id="projects">
+        {/* services and technologies Section */}
+        <section className="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto" id="technologies">
           <div className="mb-16 md:mb-24 text-center">
             <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Serviços e tecnologias</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
@@ -723,7 +723,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col">
                       <span className="font-label-bold text-label-bold text-on-surface">GitHub</span>
-                      <span className="font-code text-code text-on-surface-variant">/XxxCaetanoxxX</span>
+                      <span className="font-code text-code text-on-surface-variant">/Caetano</span>
                     </div>
                     <span className="material-symbols-outlined ml-auto text-secondary-container group-hover:text-primary-container transition-colors">
                       arrow_outward
