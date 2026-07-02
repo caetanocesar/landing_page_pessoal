@@ -661,7 +661,9 @@ export default function Home() {
 
                   <a
                     className="flex items-center gap-4 p-4 bg-surface-container-lowest border border-secondary-container rounded hover:border-primary-container hover:shadow-md transition-all group"
-                    href="https://wa.me/5500999999999"
+                    href={`https://wa.me/55031997718464?text=${encodeURIComponent(
+                      "Olá Caetano, tudo bem? Vi seu portfólio e achei seu trabalho muito interessante. Gostaria de entrar em contato para saber mais sobre seus serviços e disponibilidade para novos projetos."
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -780,7 +782,7 @@ export default function Home() {
                         onChange={handleInputChange}
                         required
                         disabled={formStatus === "sending"}
-                        placeholder="seu.email@email.com"
+                        placeholder="Digite seu email"
                         className="w-full px-4 py-3 bg-surface-container-lowest border-b-2 border-secondary-container focus:border-primary-container focus:outline-none transition-all rounded-t-md text-on-surface"
                       />
                     </div>
