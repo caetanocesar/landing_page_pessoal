@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import perfilImg from "../public/perfil.jpg";
 import { FaLinkedinIn, FaInstagram, FaWhatsapp, FaGithub, FaEnvelope } from "react-icons/fa";
 
 export default function Home() {
@@ -265,7 +266,7 @@ export default function Home() {
               <Image
                 alt="Foto de Caetano César"
                 className="object-cover object-center filter contrast-105"
-                src="/perfil.jpg"
+                src={perfilImg}
                 fill
                 priority
               />
