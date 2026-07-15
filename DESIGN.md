@@ -1,53 +1,53 @@
 ---
 name: Lumina Developer Portfolio
 colors:
-  surface: '#fcf9f8'
-  surface-dim: '#dcd9d9'
-  surface-bright: '#fcf9f8'
+  surface: '#F8FAFC'
+  surface-dim: '#e2e8f0'
+  surface-bright: '#ffffff'
   surface-container-lowest: '#ffffff'
-  surface-container-low: '#f6f3f2'
-  surface-container: '#f0eded'
-  surface-container-high: '#eae7e7'
-  surface-container-highest: '#e5e2e1'
-  on-surface: '#1c1b1b'
-  on-surface-variant: '#52424b'
-  inverse-surface: '#313030'
-  inverse-on-surface: '#f3f0ef'
-  outline: '#84727c'
-  outline-variant: '#d6c1cb'
-  surface-tint: '#973c7f'
-  primary: '#4e0040'
+  surface-container-low: '#f1f5f9'
+  surface-container: '#e2e8f0'
+  surface-container-high: '#cbd5e1'
+  surface-container-highest: '#94a3b8'
+  on-surface: '#1F2937'
+  on-surface-variant: '#475569'
+  inverse-surface: '#0F1737'
+  inverse-on-surface: '#F8FAFC'
+  outline: '#94a3b8'
+  outline-variant: '#cbd5e1'
+  surface-tint: '#5E81F4'
+  primary: '#5E81F4'
   on-primary: '#ffffff'
-  primary-container: '#6d165a'
-  on-primary-container: '#ec84cb'
-  inverse-primary: '#ffade2'
-  secondary: '#5c5f60'
+  primary-container: '#0F1737'
+  on-primary-container: '#ffffff'
+  inverse-primary: '#5E81F4'
+  secondary: '#1F2937'
   on-secondary: '#ffffff'
-  secondary-container: '#e1e3e4'
-  on-secondary-container: '#626566'
-  tertiary: '#162c00'
+  secondary-container: '#e2e8f0'
+  on-secondary-container: '#1F2937'
+  tertiary: '#0F1737'
   on-tertiary: '#ffffff'
-  tertiary-container: '#254400'
-  on-tertiary-container: '#8cb263'
+  tertiary-container: '#1F2937'
+  on-tertiary-container: '#ffffff'
   error: '#ba1a1a'
   on-error: '#ffffff'
   error-container: '#ffdad6'
   on-error-container: '#93000a'
-  primary-fixed: '#ffd8ee'
-  primary-fixed-dim: '#ffade2'
-  on-primary-fixed: '#3b002f'
-  on-primary-fixed-variant: '#7a2265'
-  secondary-fixed: '#e1e3e4'
-  secondary-fixed-dim: '#c5c7c8'
-  on-secondary-fixed: '#191c1d'
-  on-secondary-fixed-variant: '#454748'
-  tertiary-fixed: '#c6ef99'
-  tertiary-fixed-dim: '#abd380'
-  on-tertiary-fixed: '#0f2000'
-  on-tertiary-fixed-variant: '#2f4f0a'
-  background: '#fcf9f8'
-  on-background: '#1c1b1b'
-  surface-variant: '#e5e2e1'
+  primary-fixed: '#dbeafe'
+  primary-fixed-dim: '#bfdbfe'
+  on-primary-fixed: '#0F1737'
+  on-primary-fixed-variant: '#1F2937'
+  secondary-fixed: '#e2e8f0'
+  secondary-fixed-dim: '#cbd5e1'
+  on-secondary-fixed: '#0F1737'
+  on-secondary-fixed-variant: '#1F2937'
+  tertiary-fixed: '#e0e7ff'
+  tertiary-fixed-dim: '#c7d2fe'
+  on-tertiary-fixed: '#0F1737'
+  on-tertiary-fixed-variant: '#1F2937'
+  background: '#F8FAFC'
+  on-background: '#1F2937'
+  surface-variant: '#e2e8f0'
 typography:
   display-lg:
     fontFamily: Plus Jakarta Sans
@@ -120,10 +120,10 @@ The design style is a blend of **Minimalism** and **High-Contrast Modernism**. I
 
 The palette is rooted in a "Paper & Ink" philosophy. The primary background is a crisp white to maximize contrast and perceived speed. 
 
-- **Primary (#6D165A):** A deep, regal magenta used exclusively for interactive elements, progress indicators, and key brand highlights. It should be used sparingly to maintain its impact.
-- **Secondary/Surface (#F8F9FA):** A very light gray used for section backgrounds and container fills to subtly separate content modules without introducing heavy borders.
-- **Neutral/Text (#1A1A1A):** A near-black for maximum readability. Avoid pure black to keep the aesthetic "premium" and softer on the eyes.
-- **Accents:** Use light gray tints of the primary magenta (5-10% opacity) for hover states and subtle background washes.
+- **Primary (#5E81F4):** A vibrant light blue used exclusively for interactive elements, progress indicators, and key brand highlights.
+- **Secondary/Surface (#F8FAFC):** A very light gray/off-white used for section backgrounds and container fills to subtly separate content modules without introducing heavy borders.
+- **Neutral/Text (#1F2937):** A dark gray slate for maximum readability. Avoid pure black to keep the aesthetic "premium" and softer on the eyes.
+- **Accents:** Use the Dark Blue (#0F1737) for strong containers and contrasts, or light blue (#5E81F4) tints for hover states and subtle background washes.
 
 ## Typography
 
@@ -146,9 +146,9 @@ The layout follows a **Fixed Grid** model on desktop, centered with a maximum wi
 
 This design system uses a "Flat Plus" approach. Depth is created through subtle tonal shifts and very soft ambient shadows rather than heavy layering.
 
-- **Tonal Tiers:** Use the Secondary Color (#F8F9FA) for the background and White (#FFFFFF) for cards or foreground elements. This "inverse" elevation (white on gray) feels fresh and modern.
-- **Ambient Shadows:** Shadows should be almost imperceptible. Use a large blur radius (20px-40px) with very low opacity (3-5%) tinted with a hint of the primary magenta or a neutral cool gray.
-- **Refined Borders:** Use 1px solid borders in a very light gray (#E9ECEF) to define card boundaries. Only use the Primary color for borders on active input states or selected chips.
+- **Tonal Tiers:** Use the Secondary Color (#F8FAFC) for the background and White (#FFFFFF) for cards or foreground elements. This "inverse" elevation (white on gray) feels fresh and modern.
+- **Ambient Shadows:** Shadows should be almost imperceptible. Use a large blur radius (20px-40px) with very low opacity (3-5%) tinted with a hint of the primary blue or a neutral cool gray.
+- **Refined Borders:** Use 1px solid borders in a very light gray (#E2E8F0) to define card boundaries. Only use the Primary color for borders on active input states or selected chips.
 
 ## Shapes
 
@@ -160,9 +160,9 @@ The shape language is **Rounded**, striking a balance between the friendliness o
 
 ## Components
 
-- **Buttons:** Primary buttons feature a solid #6D165A fill with white text. Secondary buttons use a ghost style (1px border or transparent background) with #6D165A text. All buttons should have a subtle 2px vertical lift on hover.
-- **Project Cards:** Large white surfaces with a 1px #E9ECEF border. On hover, the border transitions to a 10% opacity primary color and the shadow deepens slightly.
-- **Chips/Tags:** Small, pill-shaped elements. Use #F8F9FA background with #1A1A1A text for technical skills (e.g., "React", "TypeScript").
-- **Input Fields:** Minimalist style with only a bottom border or a very light 4-sided border. On focus, the border becomes 2px thick and changes to the primary magenta.
-- **Lists:** Use custom bullet points (small 4px squares in #6D165A) instead of standard browser dots to maintain the brand aesthetic.
-- **Code Blocks:** Syntax highlighting should use a custom theme that incorporates the primary magenta for keywords, set against a very light gray (#F8F9FA) or dark navy background for contrast.
+- **Buttons:** Primary buttons feature a solid #5E81F4 fill with white text. Secondary buttons use a ghost style (1px border or transparent background) with #5E81F4 text. All buttons should have a subtle 2px vertical lift on hover.
+- **Project Cards:** Large white surfaces with a 1px #E2E8F0 border. On hover, the border transitions to a 10% opacity primary color and the shadow deepens slightly.
+- **Chips/Tags:** Small, pill-shaped elements. Use #F8FAFC background with #1F2937 text for technical skills (e.g., "React", "TypeScript").
+- **Input Fields:** Minimalist style with only a bottom border or a very light 4-sided border. On focus, the border becomes 2px thick and changes to the primary blue.
+- **Lists:** Use custom bullet points (small 4px squares in #5E81F4) instead of standard browser dots to maintain the brand aesthetic.
+- **Code Blocks:** Syntax highlighting should use a custom theme that incorporates the primary blue for keywords, set against a very light gray (#F8FAFC) or dark navy (#0F1737) background for contrast.

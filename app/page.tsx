@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import perfilImg from "../public/perfil.jpg";
+import logoImg from "../public/logo.png";
 import { FaLinkedinIn, FaInstagram, FaWhatsapp, FaGithub, FaEnvelope } from "react-icons/fa";
 
 export default function Home() {
@@ -82,7 +83,7 @@ export default function Home() {
             className="font-headline-sm text-headline-sm font-extrabold text-primary tracking-tighter hover:scale-95 transition-all"
             href="#home"
           >
-            Caetano César
+            <Image src={logoImg} alt="Logo" width={150} height={100} />
           </a>
 
           {/* Desktop Nav */}
@@ -717,7 +718,7 @@ export default function Home() {
 
                   <a
                     className="flex items-center gap-4 p-4 bg-surface-container-lowest border border-secondary-container rounded hover:border-primary-container hover:shadow-md transition-all group"
-                    href="https://github.com/XxxCaetanoxxX"
+                    href="https://github.com/caetanocesar"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -848,7 +849,7 @@ export default function Home() {
             <a
               aria-label="Repositório de código"
               className="text-secondary hover:text-primary-container transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
-              href="https://github.com/XxxCaetanoxxX"
+              href="https://github.com/caetanocesar"
               target="_blank"
               rel="noopener noreferrer"
             >
